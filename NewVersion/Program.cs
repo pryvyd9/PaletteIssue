@@ -6,7 +6,9 @@ namespace NewVersion;
 
 internal class Program
 {
-    static void Main(string[] args)
+    static string filename = "img.png";
+
+    static void WriteFile()
     {
         var settings = new MagickReadSettings()
         {
@@ -52,6 +54,15 @@ internal class Program
         img.ColorType = ColorType.Palette;
         img.ColorSpace = ColorSpace.sRGB;
         img.Remap(colormap.Select(n => new MagickColor(n)), qs);
-        img.WriteAsync("img.png");
+        img.WriteAsync(filename);
+    }
+
+    static void Main(string[] args)
+    {
+        WriteFile();
+        var img = new MagickImage(filename);
+        Console.WriteLine($"Depth: {img.Depth}");
+        Console.WriteLine($"ColorType: {img.ColorType}");
+        Console.WriteLine($"ColormapSize: {img.ColormapSize}");
     }
 }

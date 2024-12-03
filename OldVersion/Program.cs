@@ -4,7 +4,9 @@ namespace OldVersion
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static string filename = "img.png";
+
+        static void WriteFile()
         {
             var settings = new MagickReadSettings()
             {
@@ -44,7 +46,16 @@ namespace OldVersion
             ];
 
             img.Map(colormap.Select(n => new MagickColor(n)));
-            img.Write("img.png");
+            img.Write(filename);
+        }
+
+        static void Main(string[] args)
+        {
+            WriteFile();
+            var img = new MagickImage(filename);
+            Console.WriteLine($"Depth: {img.Depth}");
+            Console.WriteLine($"ColorType: {img.ColorType}");
+            Console.WriteLine($"ColormapSize: {img.ColormapSize}");
         }
     }
 }
